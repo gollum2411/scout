@@ -2,7 +2,7 @@
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
-setopt autocd beep extendedglob nomatch 
+setopt autocd beep extendedglob nomatch no_case_glob
 #bindkey -v
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
@@ -34,6 +34,14 @@ function zle-line-init zle-keymap-select {
     zle reset-prompt
 }
 
+whichpkg(){
+    if [ -n "$1" ]; then
+        rpm -qf $(which $1)
+    else
+        echo "Specify file" >&2
+    fi
+}
+
 zle -N zle-line-init
 zle -N zle-keymap-select
 
@@ -51,6 +59,9 @@ setopt histignoredups
 export PATH=/home/mic/bin:/usr/local/Trolltech/Qt/bin:$PATH
 
 alias ls='ls --color=auto'
+alias grep='grep --color'
+alias egrep='egrep --color'
+if [ -e /usr/bin/vimx ]; then alias vim='/usr/bin/vimx'; fi
 
 alias gits='git status'
 alias gitl='git log'
