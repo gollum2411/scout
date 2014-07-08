@@ -18,3 +18,5 @@ autocmd FileAppendPre *.py,*.c,*.h,*.cpp,*.cpp :call TrimWhiteSpace()
 autocmd FilterWritePre *.py,*.c,*.h,*.cpp,*.cpp :call TrimWhiteSpace()
 autocmd BufWritePre *.py,*.c,*.h,*.cpp,*.cpp :call TrimWhiteSpace()
 
+syntax on
+filetype indent plugin on
