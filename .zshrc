@@ -43,6 +43,10 @@ whichpkg(){
     fi
 }
 
+push_to_card(){
+    scp -oStrictHostKeyChecking=no $2 root@mic${1}:/tmp
+}
+
 zle -N zle-line-init
 zle -N zle-keymap-select
 
@@ -69,6 +73,8 @@ alias gitl='git log'
 alias gitsubup='git submodule update'
 alias gitrembranch='git branch -D $1'
 
+alias makerjacobus='make -f rjacobus.mk'
+
 alias git-submodified='gits | grep modified | cut -d ":" -f2 | cut -d "(" -f1'
 alias byebye-mpss='pushd /tmp ; sudo yum remove -y "*mpss*" ; popd'
 
@@ -88,5 +94,7 @@ alias yocto-remote-install='sudo yum --disablerepo="*" --enablerepo=yoctoremote 
 alias yocto-remote-search='yum --disablerepo="*" --enablerepo=yoctoremote search'
 
 alias gtest_filter="./$1 --gtest_filter='*$2*'"
+
+alias g++11="g++ -std=c++0x"
 #End lines by rjacobus
 
