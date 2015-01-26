@@ -4,6 +4,9 @@ set shiftwidth=4
 set expandtab
 set autoindent
 set hlsearch
+syntax on
+
+filetype plugin indent on
 
 match ErrorMsg '\s\+$'
 

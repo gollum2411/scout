@@ -47,6 +47,12 @@ push_to_card(){
     scp -oStrictHostKeyChecking=no $2 root@mic${1}:/tmp
 }
 
+set_googleinstallroot()
+{
+    export googletest_installroot=/opt/googletest
+    export googlemock_installroot=/opt/googlemock
+}
+
 zle -N zle-line-init
 zle -N zle-keymap-select
 
@@ -55,7 +61,6 @@ bindkey '^R' history-incremental-search-backward
 
 alias c='xclip -selection clip-board | xclip -o -selection clip-board'
 alias v='xclip -o -selection clip-board'
-alias micsmc='sudo /opt/intel/mic/bin/micsmc'
 alias squishrunner='/opt/squish-4.2.2-qt48x-linux64/bin/squishrunner'
 alias uncrustify='/usr/local/bin/uncrustify'
 
@@ -73,7 +78,7 @@ alias gitl='git log'
 alias gitsubup='git submodule update'
 alias gitrembranch='git branch -D $1'
 
-alias makerjacobus='make -f rjacobus.mk'
+alias makerjacobus='make -f Roberto.mk'
 
 alias git-submodified='gits | grep modified | cut -d ":" -f2 | cut -d "(" -f1'
 alias byebye-mpss='pushd /tmp ; sudo yum remove -y "*mpss*" ; popd'
@@ -95,6 +100,7 @@ alias yocto-remote-search='yum --disablerepo="*" --enablerepo=yoctoremote search
 
 alias gtest_filter="./$1 --gtest_filter='*$2*'"
 
-alias g++11="g++ -std=c++0x"
+alias g++11="g++ -std=c++0x -Wall"
+alias pdb="python -m pdb"
 #End lines by rjacobus
 
