@@ -49,8 +49,8 @@ push_to_card(){
 
 set_googleinstallroot()
 {
-    export googletest_installroot=/opt/googletest
-    export googlemock_installroot=/opt/googlemock
+    export CPPFLAGS=-I/opt/googlemock/usr/include/\ -I/opt/googletest/usr/include
+    export LDFLAGS=-L/opt/googletest/usr/lib64/\ -L/opt/googlemock/usr/lib64
 }
 
 zle -N zle-line-init

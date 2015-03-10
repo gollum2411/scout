@@ -1,11 +1,12 @@
+set nocompatible
 set nu
 set tabstop=4
 set shiftwidth=4
 set expandtab
 set autoindent
 set hlsearch
+set switchbuf=useopen,usetab,newtab
 syntax on
-
 filetype plugin indent on
 
 match ErrorMsg '\s\+$'
@@ -28,6 +29,8 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+map <F9> :make!<cr>
 
 "<<Ctrl-l> to remove last-search highlighting
 nnoremap <silent> <C-l> :nohl<CR><C-l>
