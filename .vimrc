@@ -6,6 +6,8 @@ set expandtab
 set autoindent
 set hlsearch
 set switchbuf=useopen,usetab,newtab
+set wildmode=longest,list,full
+set wildmenu
 syntax on
 filetype plugin indent on
 
@@ -25,12 +27,13 @@ autocmd FileAppendPre *.py,*.c,*.h,*.cpp,*.hpp,*.mk :call TrimWhiteSpace()
 autocmd FilterWritePre *.py,*.c,*.h,*.cpp,*.hpp,*.mk :call TrimWhiteSpace()
 autocmd BufWritePre *.py,*.c,*.h,*.cpp,*.hpp,*.mk :call TrimWhiteSpace()
 
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+nnoremap gr :grep! '\b<cword>\b' **/* <CR>
 
 map <F9> :make!<cr>
+map <F8> :make! all local_test DEBUG=1<cr>
+map <F7> :make! DEBUG=1 HOST_TEST=1<cr>
+
+map <C-h> :FSSplitRight <CR>
 
 "<<Ctrl-l> to remove last-search highlighting
 nnoremap <silent> <C-l> :nohl<CR><C-l>
