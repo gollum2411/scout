@@ -15,6 +15,10 @@ Plugin 'majutsushi/tagbar'
 Plugin 'racer-rust/vim-racer'
 Plugin 'valloric/youcompleteme'
 Plugin 'wagnerf42/vim-clippy'
+Plugin 'rafi/awesome-vim-colorschemes'
+Plugin 'NLKNguyen/papercolor-theme'
+Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plugin 'junegunn/fzf.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -34,6 +38,10 @@ set switchbuf=useopen,usetab,newtab
 set wildmode=list:longest
 set path+=**
 
+" Relative line number stuff...
+:set number relativenumber
+:set nu rnu
+
 syntax on
 filetype plugin indent on
 
@@ -47,14 +55,19 @@ function! TrimWhiteSpace()
 endfunction
 
 "Set more eye-friendly colors
-highlight Normal ctermfg=grey ctermbg=black
+" highlight Normal
+colorscheme deus
+hi StatusLine ctermfg=black ctermbg=cyan
+hi StatusLineNC ctermfg=118 ctermbg=244
+hi TabLineSel ctermbg=97
+set laststatus=2
 
 nnoremap <silent> <Leader>rts :call TrimWhiteSpace()<CR>
 
-autocmd FileWritePre *.py,*.c,*.h,*.cpp,*.hpp,*.mk :call TrimWhiteSpace()
-autocmd FileAppendPre *.py,*.c,*.h,*.cpp,*.hpp,*.mk :call TrimWhiteSpace()
-autocmd FilterWritePre *.py,*.c,*.h,*.cpp,*.hpp,*.mk :call TrimWhiteSpace()
-autocmd BufWritePre *.py,*.c,*.h,*.cpp,*.hpp,*.mk :call TrimWhiteSpace()
+autocmd FileWritePre *.py,*.c,*.h,*.cpp,*.hpp,*.mk,*.java :call TrimWhiteSpace()
+autocmd FileAppendPre *.py,*.c,*.h,*.cpp,*.hpp,*.mk,*.java :call TrimWhiteSpace()
+autocmd FilterWritePre *.py,*.c,*.h,*.cpp,*.hpp,*.mk,*.java :call TrimWhiteSpace()
+autocmd BufWritePre *.py,*.c,*.h,*.cpp,*.hpp,*.mk,*.java :call TrimWhiteSpace()
 
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j

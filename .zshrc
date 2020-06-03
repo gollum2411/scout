@@ -58,3 +58,5 @@ source ~/.cargo/env
 
 #End lines by rjacobus
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
