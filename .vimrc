@@ -37,6 +37,7 @@ set hlsearch
 set switchbuf=useopen,usetab,newtab
 set wildmode=list:longest
 set path+=**
+set cursorline
 
 " Relative line number stuff...
 :set number relativenumber
@@ -69,10 +70,8 @@ autocmd FileAppendPre *.py,*.c,*.h,*.cpp,*.hpp,*.mk,*.java :call TrimWhiteSpace(
 autocmd FilterWritePre *.py,*.c,*.h,*.cpp,*.hpp,*.mk,*.java :call TrimWhiteSpace()
 autocmd BufWritePre *.py,*.c,*.h,*.cpp,*.hpp,*.mk,*.java :call TrimWhiteSpace()
 
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+nnoremap <C-f> :Files <cr>
+nnoremap <C-k> :Rg <c-r><c-w> <cr>
 
 map <F8> :mksession! vimsesh <cr> :wqa <cr>
 map <F9> :make!<cr>

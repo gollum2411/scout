@@ -2,13 +2,12 @@
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
-setopt autocd beep extendedglob nomatch
+setopt autocd beep extendedglob nomatch interactivecomments
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/rjacobus/.zshrc'
 
-autoload -Uz compinit
-compinit
+autoload -Uz compinit && compinit -i
 # End of lines added by compinstall
 
 echo "          *******************************************************"
@@ -56,7 +55,13 @@ export PKG_CONFIG_PATH=/usr/local/lib64/pkgconfig/
 
 source ~/.cargo/env
 
+fpath=(~/.zsh/completion $fpath)
+
+source ~/.zsh/antigen.zsh
+antigen bundle hschne/fzf-git
+
 #End lines by rjacobus
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
