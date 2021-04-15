@@ -19,6 +19,9 @@ Plugin 'rafi/awesome-vim-colorschemes'
 Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plugin 'junegunn/fzf.vim'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'rhysd/vim-clang-format'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -26,6 +29,7 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 
 " Put your non-Plugin stuff after this line
+let g:ycm_confirm_extra_conf = 0
 
 set nocompatible
 set nu
@@ -62,6 +66,9 @@ hi StatusLine ctermfg=black ctermbg=cyan
 hi StatusLineNC ctermfg=118 ctermbg=244
 hi TabLineSel ctermbg=97
 set laststatus=2
+
+hi ExtraWhitespace ctermfg=red ctermbg=red
+match ExtraWhitespace /\s\+$/
 
 nnoremap <silent> <Leader>rts :call TrimWhiteSpace()<CR>
 

@@ -65,3 +65,8 @@ antigen bundle hschne/fzf-git
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+
+# >>>> Vagrant command completion (start)
+fpath=(/tmp/.mount_vagran6svwB0/usr/gembundle/gems/vagrant-2.2.15/contrib/zsh $fpath)
+compinit
+# <<<<  Vagrant command completion (end)
