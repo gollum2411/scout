@@ -70,3 +70,5 @@ antigen bundle hschne/fzf-git
 fpath=(/tmp/.mount_vagran6svwB0/usr/gembundle/gems/vagrant-2.2.15/contrib/zsh $fpath)
 compinit
 # <<<<  Vagrant command completion (end)
+#
+source ~/.k8s_comp

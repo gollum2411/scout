@@ -42,6 +42,7 @@ set switchbuf=useopen,usetab,newtab
 set wildmode=list:longest
 set path+=**
 set cursorline
+set noincsearch
 
 " Relative line number stuff...
 :set number relativenumber
