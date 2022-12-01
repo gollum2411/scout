@@ -48,6 +48,10 @@ alias gitl='git log'
 alias gitsubup='git submodule update'
 alias gitrembranch='git branch -D $1'
 
+function gitrt() {
+    git tag -d "$1" && git tag "$1"
+}
+
 alias git-submodified='gits | grep modified | cut -d ":" -f2 | cut -d "(" -f1'
 
 export PATH=$PATH:/usr/local/go/bin:/home/rjacobus/bin:/home/rjacobus/go/bin
@@ -59,6 +63,11 @@ fpath=(~/.zsh/completion $fpath)
 
 source ~/.zsh/antigen.zsh
 antigen bundle hschne/fzf-git
+
+# Enable Ctrl-x-e to edit command line
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd v edit-command-line
 
 #End lines by rjacobus
 
@@ -72,3 +81,5 @@ compinit
 # <<<<  Vagrant command completion (end)
 #
 source ~/.k8s_comp
+
+EDITOR=vim

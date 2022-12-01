@@ -22,6 +22,11 @@ Plugin 'junegunn/fzf.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'rhysd/vim-clang-format'
+Plugin 'hashivim/vim-terraform'
+Plugin 'tell-k/vim-autopep8'
+Plugin 'preservim/nerdtree'
+Plugin 'frazrepo/vim-rainbow'
+Plugin 'Glench/Vim-Jinja2-Syntax'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -30,6 +35,7 @@ filetype plugin indent on    " required
 
 " Put your non-Plugin stuff after this line
 let g:ycm_confirm_extra_conf = 0
+let g:ycm_rust_toolchain_root = '~/.rustup/toolchains/nightly-2021-11-16-x86_64-unknown-linux-gnu/'
 
 set nocompatible
 set nu
@@ -53,6 +59,7 @@ filetype plugin indent on
 
 au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
 
 match ErrorMsg '\s\+$'
 
@@ -73,17 +80,22 @@ match ExtraWhitespace /\s\+$/
 
 nnoremap <silent> <Leader>rts :call TrimWhiteSpace()<CR>
 
-autocmd FileWritePre *.py,*.c,*.h,*.cpp,*.hpp,*.mk,*.java :call TrimWhiteSpace()
-autocmd FileAppendPre *.py,*.c,*.h,*.cpp,*.hpp,*.mk,*.java :call TrimWhiteSpace()
-autocmd FilterWritePre *.py,*.c,*.h,*.cpp,*.hpp,*.mk,*.java :call TrimWhiteSpace()
-autocmd BufWritePre *.py,*.c,*.h,*.cpp,*.hpp,*.mk,*.java :call TrimWhiteSpace()
+autocmd FileWritePre *.py,*.c,*.h,*.cpp,*.hpp,*.mk,*.java,*.go :call TrimWhiteSpace()
+autocmd FileAppendPre *.py,*.c,*.h,*.cpp,*.hpp,*.mk,*.java,*.go :call TrimWhiteSpace()
+autocmd FilterWritePre *.py,*.c,*.h,*.cpp,*.hpp,*.mk,*.java,*.go :call TrimWhiteSpace()
+autocmd BufWritePre *.py,*.c,*.h,*.cpp,*.hpp,*.mk,*.java,*.go :call TrimWhiteSpace()
 
 nnoremap <C-f> :Files <cr>
 nnoremap <C-k> :Rg <c-r><c-w> <cr>
 
-map <F8> :mksession! vimsesh <cr> :wqa <cr>
-map <F9> :make!<cr>
+nnoremap <F8> :mksession! vimsesh <cr> :wa <cr> :qa <cr>
+nnoremap <F9> :make!<cr>
 
 "<<Ctrl-l> to remove last-search highlighting
 nnoremap <silent> <C-l> :nohl<CR><C-l>
+
+let g:autopep8_ignore="E226,E24,W6,E402"
+let g:autopep8_disable_show_diff=1
+autocmd BufWritePost *.py Autopep8
+au FileType python setlocal formatprg=autopep8\ -
 
