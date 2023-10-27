@@ -57,7 +57,7 @@ alias git-submodified='gits | grep modified | cut -d ":" -f2 | cut -d "(" -f1'
 export PATH=$PATH:/usr/local/go/bin:/home/rjacobus/bin:/home/rjacobus/go/bin
 export PKG_CONFIG_PATH=/usr/local/lib64/pkgconfig/
 
-source ~/.cargo/env
+[ -f ~/.cargo/env ] && source ~/.cargo/env
 
 fpath=(~/.zsh/completion $fpath)
 
@@ -80,6 +80,18 @@ fpath=(/tmp/.mount_vagran6svwB0/usr/gembundle/gems/vagrant-2.2.15/contrib/zsh $f
 compinit
 # <<<<  Vagrant command completion (end)
 #
-source ~/.k8s_comp
+[ -f ~/.k8s_comp ] && source ~/.k8s_comp
 
 EDITOR=vim
+SUDO_EDITOR=vim
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+function open_vim() {
+    declare -a opts
+    if [ -f "$(pwd)/vimrc" ]; then
+        opts+=(-u "$(pwd)/vimrc")
+    fi
+    /usr/local/bin/vim "${opts[@]}" $@
+}
+alias vim=open_vim

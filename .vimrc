@@ -16,6 +16,8 @@ Plugin 'racer-rust/vim-racer'
 Plugin 'valloric/youcompleteme'
 Plugin 'wagnerf42/vim-clippy'
 Plugin 'rafi/awesome-vim-colorschemes'
+Plugin 'xolox/vim-colorscheme-switcher'
+Plugin 'xolox/vim-misc'
 Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plugin 'junegunn/fzf.vim'
@@ -27,7 +29,7 @@ Plugin 'tell-k/vim-autopep8'
 Plugin 'preservim/nerdtree'
 Plugin 'frazrepo/vim-rainbow'
 Plugin 'Glench/Vim-Jinja2-Syntax'
-
+" Plugin 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 
@@ -69,7 +71,8 @@ endfunction
 
 "Set more eye-friendly colors
 " highlight Normal
-colorscheme deus
+let g:colorscheme_switcher_define_mappings = 0
+colorscheme tender
 hi StatusLine ctermfg=black ctermbg=cyan
 hi StatusLineNC ctermfg=118 ctermbg=244
 hi TabLineSel ctermbg=97
@@ -80,10 +83,10 @@ match ExtraWhitespace /\s\+$/
 
 nnoremap <silent> <Leader>rts :call TrimWhiteSpace()<CR>
 
-autocmd FileWritePre *.py,*.c,*.h,*.cpp,*.hpp,*.mk,*.java,*.go :call TrimWhiteSpace()
-autocmd FileAppendPre *.py,*.c,*.h,*.cpp,*.hpp,*.mk,*.java,*.go :call TrimWhiteSpace()
-autocmd FilterWritePre *.py,*.c,*.h,*.cpp,*.hpp,*.mk,*.java,*.go :call TrimWhiteSpace()
-autocmd BufWritePre *.py,*.c,*.h,*.cpp,*.hpp,*.mk,*.java,*.go :call TrimWhiteSpace()
+autocmd FileWritePre *.py,*.c,*.h,*.cpp,*.hpp,*.mk,*.java,*.go,*.yaml,.yml :call TrimWhiteSpace()
+autocmd FileAppendPre *.py,*.c,*.h,*.cpp,*.hpp,*.mk,*.java,*.go,*.yaml,.yml :call TrimWhiteSpace()
+autocmd FilterWritePre *.py,*.c,*.h,*.cpp,*.hpp,*.mk,*.java,*.go,*.yaml,.yml :call TrimWhiteSpace()
+autocmd BufWritePre *.py,*.c,*.h,*.cpp,*.hpp,*.mk,*.java,*.go,*.yaml,.yml :call TrimWhiteSpace()
 
 nnoremap <C-f> :Files <cr>
 nnoremap <C-k> :Rg <c-r><c-w> <cr>
