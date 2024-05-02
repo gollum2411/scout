@@ -124,3 +124,5 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 let g:UltiSnipsSnippetDirectories=["~/ultisnips"]
 
 command TB :TagbarToggle
+
+let mapleader=" "

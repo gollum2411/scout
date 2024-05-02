@@ -1,0 +1,47 @@
+snippet output
+output "${1:name}" {
+  value       = ${2:"${aws_instance.foo.public_ip}"}
+  description = "${3:TODO}"
+}
+endsnippet
+
+snippet res
+resource "${1:aws_resource}" "${2:resource_name}" {
+
+}
+endsnippet
+
+snippet var
+variable "${1:var}" {
+  type        = ${2:string}
+  description = "${3:TODO}"
+}
+endsnippet
+
+snippet venv
+var.environment
+endsnippet
+
+snippet pol
+resource "aws_iam_policy" "${1:CHANGE_ME}" {
+  name        = "${2:CHANGE_ME}"
+  description = "${3:CHANGE_ME}"
+  policy      = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [{
+      "Sid": "${4:CHANGE_ME}",
+      "Action": [
+          "s3:*"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "${var.bucket_arn}",
+        "${var.bucket_arn}/*"
+      ]
+  }]
+}
+EOF
+}
+endsnippet
+

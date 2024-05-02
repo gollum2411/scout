@@ -2,19 +2,84 @@
 
 priority -10
 
+snippet newmig "New pgx migration"
+const (
+	${1:ChangeMe}Up = \`
+	BEGIN;
+	COMMIT;
+	\`
+	$1Down = \`
+	BEGIN;
+	COMMIT;
+	\`
+)
+endsnippet
+
+snippet debug "log DEBUG message"
+log.Printf("DEBUG: ${1:change me}"${2})
+endsnippet
+
+snippet callm "resp, err := c.Method(...)"
+resp, err := ${1:client}.${2:Method}(ctx, $2Request{
+})
+endsnippet
+
+# test t.Run
+snippet trun "t.Run(XYZ, func(t *testing.T){ ... })"
+t.Run("${0}", func(t *testing.T){
+
+})
+endsnippet
+
+snippet any "map[string]any{}"
+map[string]any{}
+endsnippet
+
+snippet now "time.Now().UTC()"
+time.Now().UTC()
+endsnippet
+
+snippet uuid "Create uuid"
+uuid.NewString()
+endsnippet
+
+snippet assa "assert.Assert()"
+assert.Assert(t, ${1:expr})
+endsnippet
+
+snippet assn "assert.NilError"
+assert.NilError(t, err)
+endsnippet
+
+snippet asseq "assert.Equal"
+assert.Equal(t, ${1:a}, ${2:b})
+endsnippet
+
+snippet assdeq "assert.DeepEqual"
+assert.DeepEqual(t, ${1:a}, ${2:b})
+endsnippet
+
+snippet ctxt "Create context.WithTimeout"
+ctx, cls := context.WithTimeout(${1:context.Background()}, 5*time.Minute)
+defer cls()
+endsnippet
+
 snippet ginh "Create a gin handler with req and resp structs"
 
-type `!p capitalize_struct(t[1])`Request struct {
+type `!p export(t[1])`Request struct {
 	QParam string \`form:""\`
 	PParam string \`uri:""\`
 	JParam string \`json:""\`
 }
 
-type `!p capitalize_struct(t[1])`Response struct {
+type `!p export(t[1])`Response struct {
 }
 
 func ${1:getFoo}(c *gin.Context) {
-	req := `!p capitalize_struct(t[1])`Request{}
+	ctx, cls := context.WithTimeout(c, 5*time.Minute)
+	defer cls()
+
+	req := `!p export(t[1])`Request{}
 	if BindURIOrAbort(c, &req) {
 		return
 	}
@@ -27,15 +92,91 @@ func ${1:getFoo}(c *gin.Context) {
 		return
 	}
 
-	out := `!p capitalize_struct(t[1])`Response{}
+	out := `!p export(t[1])`Response{}
 	OK(c, out)
 }
 
 endsnippet
 
 snippet sdkmethod "func (c *client) Method(...)"
-func (${1:*client}) ${2:Method}(ctx context.Context, $2Request) (out $2Response, err error) {
+type (
+	`!p export(t[2])`Request = handler.`!p export(t[2])`Request
+	`!p export(t[2])`Response = handler.`!p export(t[2])`Response
+)
+
+func (c ${1:*client}) ${2:Method}(ctx context.Context, req $2Request) (out $2Response, err error) {
 	return out, nil
+}
+endsnippet
+
+snippet dbmethod "New DB client method"
+type `!p export(t[2])`Request struct {
+}
+
+type `!p export(t[2])`Response struct {
+}
+
+const (
+	`!p unexport(t[2])`SQL = \`
+	\`
+)
+
+func (c ${1:DBClient}) ${2:Method}(ctx context.Context, in $2Request) (out $2Response, err error) {
+	tx, err := c.Begin(ctx)
+	if err != nil {
+		return out, fmt.Errorf("failed to create tx: %w", err)
+	}
+	defer tx.Rollback(ctx)
+
+	/*
+	rows, err := tx.Query(ctx, `!p unexport(t[2])`SQL,
+		in.Arg0,
+		in.Arg1,
+	)
+
+	if err != nil {
+		return out, fmt.Errorf("query failed: %w", err)
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		err = rows.Scan(
+			&out.Out0,
+			&out.Out1,
+		)
+		if err != nil {
+			return out, fmt.Errorf("failed to scan row: %w", err)
+		}
+	}
+
+	*/
+
+	/*
+	row := tx.QueryRow(ctx, `!p unexport(t[2])`SQL,
+		in.Arg0,
+		in.Arg1,
+	)
+	err = row.Scan(
+		&out.Out0,
+		&out.Out1,
+	)
+	// if errors.Is(err, pgx.ErrNoRows) {}
+	if err != nil {
+		return out, fmt.Errorf("failed to scan: %w", err)
+	}
+	*/
+
+	/*
+	_, err = tx.Exec(ctx, `!p unexport(t[2])`SQL,
+		in.Arg0,
+		in.Arg1,
+	)
+	if err != nil {
+		return out, fmt.Errorf("failed to execute statement: %w", err)
+	}
+	*/
+
+	return out, tx.Commit(ctx)
 }
 endsnippet
 
@@ -473,13 +614,6 @@ func Test${1:Function}(t *testing.T) {
 }
 endsnippet
 
-# test t.Run
-snippet tr "t.Run(XYZ, func(t *testing.T){ ... })"
-t.Run("${0}", func(t *testing.T){
-
-})
-endsnippet
-
 # test table snippet
 snippet tt
 var tests = []struct {
@@ -597,11 +731,18 @@ def closing_par(snip, pos):
 	else:
 		snip.rv = ""
 
-def capitalize_struct(name):
+def export(name):
 	if not name:
 		return
 	l = list(name)
 	l[0] = name[0].upper()
+	snip.rv = "".join(l)
+
+def unexport(name):
+	if not name:
+		return
+	l = list(name)
+	l[0] = name[0].lower()
 	snip.rv = "".join(l)
 
 endglobal
