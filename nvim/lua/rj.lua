@@ -5,6 +5,8 @@
 -- { 'numToStr/Comment.nvim', opts = {} },
 --
 --
+--
+require("rj_plugins")
 
 local keymap_set = vim.keymap.set
 
@@ -17,12 +19,9 @@ vim.g.UltiSnipsJumpBackwardTrigger = "<c-k>"
 
 vim.g.completion_enable_snippet = "UltiSnips"
 
-vim.cmd([[colorscheme PaperColor]])
-
 keymap_set("n", "<F8>", "<cmd>mksession! vimsesh<cr> <cmd>wqa<cr>")
 keymap_set("n", "<c-f>", "<cmd>Telescope find_files<cr>")
 
 keymap_set("n", "<leader>e", "<cmd>Explore<cr>")
 keymap_set("n", "<leader>t", "<cmd>tabe<cr>")
 keymap_set("n", "<leader>rg", "<cmd>Telescope live_grep<cr>")
-
