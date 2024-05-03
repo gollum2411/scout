@@ -2,6 +2,45 @@
 
 priority -10
 
+snippet clif "New urfave cli.Flag"
+&cli.${1:StringFlag} {
+	Name: "${2:CHANGE_ME}",
+	Usage: "${3:CHANGE_ME}",
+	Value: "${4:CHANGE_ME"},
+	Required: false,
+},
+endsnippet
+
+snippet flags "New urfave cli.Flag"
+Flags: []cli.Flag {
+},
+endsnippet
+
+snippet clicf "New func returning a cli.Command"
+func ${1:Command}() *cli.Command {
+	return &cli.Command {
+		Name: "${2:CHANGE_ME}",
+		Usage: "${3:CHANGE_ME}",
+		Action: `!p unexport(t[1])`Action,
+		Flags: []cli.Flag {
+		},
+		Subcommands: []*cli.Command {
+		},
+	}
+}
+endsnippet
+
+# form field tag
+snippet form "\`form:key\`"
+\`form:"${1:`!v  go#util#snippetcase(matchstr(getline("."), '\w\+'))`}"\`
+endsnippet
+
+# uri field tag
+snippet uri "\`uri:key\`"
+\`uri:"${1:`!v  go#util#snippetcase(matchstr(getline("."), '\w\+'))`}"\`
+endsnippet
+
+
 snippet newmig "New pgx migration"
 const (
 	${1:ChangeMe}Up = \`
