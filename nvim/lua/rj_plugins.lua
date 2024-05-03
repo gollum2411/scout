@@ -26,8 +26,10 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	"junegunn/fzf",
 	"junegunn/fzf.vim",
-	"quangnguyen30192/cmp-nvim-ultisnips",
 	"SirVer/ultisnips",
+	"quangnguyen30192/cmp-nvim-ultisnips",
+	-- o7
+	-- Bye, friend,
 	--"fatih/vim-go",
 
 	{
@@ -672,7 +674,7 @@ require("lazy").setup({
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		opts = {
-			ensure_installed = { "bash", "c", "html", "lua", "luadoc", "markdown", "vim", "vimdoc" },
+			ensure_installed = { "go", "bash", "c", "html", "lua", "luadoc", "markdown", "vim", "vimdoc" },
 			-- Autoinstall languages that are not installed
 			auto_install = true,
 			highlight = {
