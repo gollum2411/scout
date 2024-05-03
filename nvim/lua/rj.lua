@@ -1,5 +1,3 @@
-require("kickstart")
-
 -- ************ NOTE ************************
 -- USEFUL THINGS TO REMEMBER ON THIS MIGRATION
 --
@@ -27,3 +25,4 @@ keymap_set("n", "<c-f>", "<cmd>Telescope find_files<cr>")
 keymap_set("n", "<leader>e", "<cmd>Explore<cr>")
 keymap_set("n", "<leader>t", "<cmd>tabe<cr>")
 keymap_set("n", "<leader>rg", "<cmd>Telescope live_grep<cr>")
+
