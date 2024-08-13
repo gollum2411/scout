@@ -28,6 +28,10 @@ func ${1:Command}() *cli.Command {
 		},
 	}
 }
+
+func `!p unexport(t[1])`Action(c *cli.Context) error {
+	return nil
+}
 endsnippet
 
 # form field tag
@@ -55,7 +59,7 @@ const (
 endsnippet
 
 snippet debug "log DEBUG message"
-log.Printf("DEBUG: ${1:change me}"${2})
+log.Printf("RJ DEBUG: ${1:change me}"${2})
 endsnippet
 
 snippet callm "resp, err := c.Method(...)"
